@@ -4,10 +4,9 @@ define nagios::user (
   $users_file = $nagios::server::users_file
 ) {
 
-  htpasswd { "${name} ${users_file}" :
-    username    => $username,
-    cryptpasswd => $cryptpasswd,
-    target      => $users_file,
-    require     => Package['nagios3'],
+  concat::fragment { "${name} ${users_file}" :
+    target  => $users_file,
+    content => "${username}:${cryptpasswd}",
+    require => Package['nagios3'],
   }
 }

@@ -26,11 +26,14 @@ class nagios::server(
     mode    => 644,
     require => Package['nagios3'],
   }
+  
+  file { '/etc/nagios' :
+    ensure => link,
+    target => '/etc/nagios3/conf.d',
+  }
 
-  file { $users_file :
-    ensure  => present,
-    mode    => 744,
-    require => Package['nagios3']
+  concat { $users_file :
+    require => Package['nagios3'],
   }
 
   service { 'nagios3' :
