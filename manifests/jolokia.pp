@@ -14,9 +14,7 @@ class nagios::jolokia {
   }
 
   nagios_command { 'check_j4p_HeapMemory':
-    before       => File['/etc/nagios3/conf.d'],
     ensure       => present,
-    target       => '/etc/nagios3/conf.d/jmx_command.cfg',
     command_line => '/usr/lib/nagios/plugins/check_jmx4perl \
                               --url http://$HOSTNAME$:$ARG1$ \
                               --mbean java.lang:type=Memory \
