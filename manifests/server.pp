@@ -1,9 +1,4 @@
 class nagios::server(
-  $hosts = {},
-  $services = {},
-  $commands = {},
-  $hosts_defaults = {},
-  $services_defaults = {},
   $users_file = '/etc/nagios3/htpasswd.users'
 ) {
   package { 'nagios3' :
@@ -42,10 +37,6 @@ class nagios::server(
     hasrestart  => true,
     require     => Package['nagios3'],
   }
-
-  create_resources( nagios_host, $hosts, $hosts_defaults)
-  create_resources( nagios_service, $services, $services_defaults)
-  create_resources( nagios_command, $commands)
   
   # Gather the local resources
   Package['nagios3'] -> Nagios_host <||>    ~> Service['nagios3']

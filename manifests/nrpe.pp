@@ -1,4 +1,4 @@
-define nagios::check::nrpe (
+define nagios::nrpe (
   $command,
   $service_description,
   $notification_period = $nagios::check::default_notification_period,

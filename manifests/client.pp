@@ -22,11 +22,4 @@ class nagios::client (
     ensure    => running,
     subscribe => File['/etc/nagios/nrpe_local.cfg'],
   }
-
-  # Export this client as a nagios host. 
-  @@nagios_host{ $fqdn :
-    ensure  => present,
-    alias   => $hostname,
-    address => $ipaddress,
-  }
 }
