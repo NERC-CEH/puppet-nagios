@@ -17,6 +17,5 @@ define nagios::nrpe (
     host_name           => $host_name,
     notification_period => $notification_period,
     service_description => $service_description,
-    target              => '/etc/nagios3/conf.d/service.cfg',
   }
 }
