@@ -14,7 +14,7 @@ class nagios::client (
 
   concat::fragment { "allowed_hosts ${nrpe_config}":
     target  => $nrpe_config,
-    content => "allowed_hosts=${nagios_server}"
+    content => "allowed_hosts=${nagios_server}\n"
   }
 
   # Keep the nrpe service running
