@@ -14,13 +14,6 @@ class nagios::jolokia {
   }
 
   nagios_command { 'check_j4p_HeapMemory':
-    ensure       => present,
-    command_line => '/usr/lib/nagios/plugins/check_jmx4perl \
-                              --url http://$HOSTNAME$:$ARG1$ \
-                              --mbean java.lang:type=Memory \
-                              --attribute HeapMemoryUsage \
-                              --path used \
-                              --base java.lang:type=Memory/HeapMemoryUsage/max \
-                              --warning 80 --critical 90',
+    command_line => '/usr/lib/nagios/plugins/check_jmx4perl --url http://$HOSTNAME$:$ARG1$ --mbean java.lang:type=Memory --attribute HeapMemoryUsage --path used --base java.lang:type=Memory/HeapMemoryUsage/max --warning 80 --critical 90',
   }
 }
