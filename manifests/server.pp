@@ -16,15 +16,16 @@ class nagios::server(
   }
 
   file { '/etc/nagios3/conf.d' :
-    ensure  => directory,
-    recurse => true,
-    mode    => 644,
+    ensure  => link,
+    force   => true,
+    target  => '/etc/nagios',
     require => Package['nagios3'],
   }
   
   file { '/etc/nagios' :
-    ensure => link,
-    target => '/etc/nagios3/conf.d',
+    ensure  => directory,
+    recurse => true,
+    mode    => 644,
   }
 
   concat { $users_file :
