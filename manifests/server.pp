@@ -55,7 +55,7 @@ class nagios::server(
   Package['nagios3'] -> Nagios_servicedependency <||> ~> Service['nagios3']
   Package['nagios3'] -> Nagios_serviceescalation <||> ~> Service['nagios3']
   Package['nagios3'] -> Nagios_serviceextinfo <||>    ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_serviceextgroup <||>   ~> Service['nagios3']
+  Package['nagios3'] -> Nagios_servicegroup <||>      ~> Service['nagios3']
   Package['nagios3'] -> Nagios_timeperiod <||>        ~> Service['nagios3']
 
   # Gather the exported nagios resources 
@@ -71,6 +71,6 @@ class nagios::server(
   Package['nagios3'] -> Nagios_servicedependency <<||>> ~> Service['nagios3']
   Package['nagios3'] -> Nagios_serviceescalation <<||>> ~> Service['nagios3']
   Package['nagios3'] -> Nagios_serviceextinfo <<||>>    ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_serviceextgroup <<||>>   ~> Service['nagios3']
+  Package['nagios3'] -> Nagios_servicegroup <<||>>      ~> Service['nagios3']
   Package['nagios3'] -> Nagios_timeperiod <<||>>        ~> Service['nagios3']
 }
