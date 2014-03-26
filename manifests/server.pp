@@ -50,7 +50,8 @@ class nagios::server(
   
   # Set all of the config files to the correct mode
   file { $config_files :
-    mode => 644,
+    mode   => 644,
+    ensure => present,
   }
 
   concat { $users_file :
