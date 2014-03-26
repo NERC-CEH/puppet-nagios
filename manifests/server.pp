@@ -2,7 +2,23 @@ class nagios::server(
   $version         = installed,
   $nrpe_version    = installed,
   $plugins_version = installed,
-  $users_file      = '/etc/nagios3/htpasswd.users'
+  $users_file      = '/etc/nagios3/htpasswd.users',
+  $config_files = [
+    '/etc/nagios/nagios_command.cfg',
+    '/etc/nagios/nagios_contact.cfg',
+    '/etc/nagios/nagios_contactgroup.cfg',
+    '/etc/nagios/nagios_host.cfg',
+    '/etc/nagios/nagios_hostdependency.cfg',
+    '/etc/nagios/nagios_hostescalation.cfg',
+    '/etc/nagios/nagios_hostextinfo.cfg',
+    '/etc/nagios/nagios_hostgroup.cfg',
+    '/etc/nagios/nagios_service.cfg',
+    '/etc/nagios/nagios_servicedependency.cfg',
+    '/etc/nagios/nagios_serviceescalation.cfg',
+    '/etc/nagios/nagios_serviceextinfo.cfg',
+    '/etc/nagios/nagios_servicegroup.cfg',
+    '/etc/nagios/nagios_timeperiod.cfg'
+  ]
 ) {
   package { 'nagios3' :
     ensure => $version,
@@ -29,6 +45,12 @@ class nagios::server(
     ensure  => directory,
     recurse => true,
     mode    => 644,
+    purge   => true,
+  }
+  
+  # Set all of the config files to the correct mode
+  file { $config_files :
+    mode => 644,
   }
 
   concat { $users_file :
