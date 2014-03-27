@@ -1,3 +1,23 @@
+# == Define: tomcat::deployment
+#
+# Define an nrpe service which can be monitored by a remote nagios server.
+#
+# === Parameters
+#
+# [*command*] The command to run
+# [*service_description*] A description of this nrpe service
+# [*notification_period*] The notification period of this nrpe service
+# [*host_name*] The host name which this nagios service can be contacted on.
+# [*command_name*] The name of the command
+# [*use*] A nagios service template to use
+#
+# === Requires
+# - nagios::client
+#
+# === Authors
+#
+# Christopher Johnson - cjohn@ceh.ac.uk
+#
 define nagios::nrpe (
   $command,
   $service_description,

@@ -1,3 +1,15 @@
+# == Class: nagios::command_jolokia
+#
+# This class download and install the jmx4perl package. This enables you to monitor
+# internal aspects of a java virtual machine. You will need to have [jolokia](jolokia.org)
+# running on the server you which to inspect.
+#
+# This class should be applied directly to a nagios monitor. i.e on with nagios::server defined
+#
+# === Authors
+#
+# Christopher Johnson - cjohn@ceh.ac.uk
+#
 class nagios::command_jolokia {
   ::apt::source { 'gekkio-jmx4perl' :
     location   => 'http://ppa.launchpad.net/gekkio/jmx4perl/ubuntu',

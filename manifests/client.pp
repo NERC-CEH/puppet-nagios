@@ -1,3 +1,18 @@
+# == Class: nagios::client
+#
+# This class will set up a node to host nrpe commands which can be accessed
+# for monitoring via your nagios server
+#
+# === Parameters
+#
+# [*nagios_server*] The $nagios_server which can access this node for monitoring
+# [*nagios_version*] The version of nagios plugins to install
+# [*nrpe_config*] The nrpe_config file to manage
+#
+# === Authors
+#
+# Christopher Johnson - cjohn@ceh.ac.uk
+#
 class nagios::client (
   $nagios_server,
   $nagios_version = installed,

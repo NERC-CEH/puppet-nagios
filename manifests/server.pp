@@ -1,3 +1,20 @@
+# == Class: nagios::server
+#
+# This class downloads and installs the nagios and sets up the nagios configuration files
+# to configure.
+#
+# === Parameters
+#
+# [*version*] The version of nagios to install
+# [*nrpe_version*] The version of nrpe-plugin to install
+# [*plugins_version*] The version of the plugins to install
+# [*users_file*] The location of the users file which can be managed with nagios::user
+# [*config_files*] The config files which are to be managed by puppet (sets these to mode 644)
+#
+# === Authors
+#
+# Christopher Johnson - cjohn@ceh.ac.uk
+#
 class nagios::server(
   $version         = installed,
   $nrpe_version    = installed,
