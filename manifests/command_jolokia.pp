@@ -1,4 +1,4 @@
-class nagios::jolokia {
+class nagios::command_jolokia {
 
   ::apt::source { 'gekkio-jmx4perl' :
     location   => 'http://ppa.launchpad.net/gekkio/jmx4perl/ubuntu',
