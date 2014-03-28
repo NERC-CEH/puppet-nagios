@@ -75,6 +75,14 @@ class nagios::server(
     require => Package['nagios3'],
   }
 
+  # Verify that the nagios configuration is in a good state before restarting
+  exec { 'nagios3-verify' :
+    path        => '/usr/sbin',
+    command     => 'nagios3 -v /etc/nagios3/nagios.cfg',
+    refreshonly => true,
+    notify      => Service['nagios3'],
+  }
+
   service { 'nagios3' :
     ensure      => running,
     hasstatus   => true,
@@ -83,34 +91,34 @@ class nagios::server(
   }
   
   # Gather the local resources
-  Package['nagios3'] -> Nagios_command <||>           ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_contact <||>           ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_contactgroup <||>      ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_host <||>              ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_hostdependency <||>    ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_hostescalation <||>    ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_hostextinfo <||>       ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_hostgroup <||>         ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_service <||>           ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_servicedependency <||> ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_serviceescalation <||> ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_serviceextinfo <||>    ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_servicegroup <||>      ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_timeperiod <||>        ~> Service['nagios3']
+  Package['nagios3'] -> Nagios_command <||>           ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_contact <||>           ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_contactgroup <||>      ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_host <||>              ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_hostdependency <||>    ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_hostescalation <||>    ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_hostextinfo <||>       ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_hostgroup <||>         ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_service <||>           ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_servicedependency <||> ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_serviceescalation <||> ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_serviceextinfo <||>    ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_servicegroup <||>      ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_timeperiod <||>        ~> Exec['nagios3-verify']
 
   # Gather the exported nagios resources 
-  Package['nagios3'] -> Nagios_command <<||>>           ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_contact <<||>>           ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_contactgroup <<||>>      ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_host <<||>>              ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_hostdependency <<||>>    ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_hostescalation <<||>>    ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_hostextinfo <<||>>       ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_hostgroup <<||>>         ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_service <<||>>           ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_servicedependency <<||>> ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_serviceescalation <<||>> ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_serviceextinfo <<||>>    ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_servicegroup <<||>>      ~> Service['nagios3']
-  Package['nagios3'] -> Nagios_timeperiod <<||>>        ~> Service['nagios3']
+  Package['nagios3'] -> Nagios_command <<||>>           ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_contact <<||>>           ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_contactgroup <<||>>      ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_host <<||>>              ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_hostdependency <<||>>    ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_hostescalation <<||>>    ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_hostextinfo <<||>>       ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_hostgroup <<||>>         ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_service <<||>>           ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_servicedependency <<||>> ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_serviceescalation <<||>> ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_serviceextinfo <<||>>    ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_servicegroup <<||>>      ~> Exec['nagios3-verify']
+  Package['nagios3'] -> Nagios_timeperiod <<||>>        ~> Exec['nagios3-verify']
 }
