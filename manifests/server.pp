@@ -62,6 +62,7 @@ class nagios::server(
     group   => 'root',
     mode    => '644',
     content => template('nagios/nagios.cfg.erb'),
+    notify  => Exec['nagios3-verify'],
     require => Package['nagios3'],
   }
   
