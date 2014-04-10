@@ -19,6 +19,12 @@ class nagios::server(
   $version         = installed,
   $nrpe_version    = installed,
   $plugins_version = installed,
+  $enable_embedded_perl         = 0,
+  $use_embedded_perl_implicitly = 0,
+  $config_dirs = [
+    '/etc/nagios-plugins/config',
+    '/etc/nagios'
+  ],
   $users_file      = '/etc/nagios3/htpasswd.users',
   $config_files = [
     '/etc/nagios/nagios_command.cfg',
@@ -51,10 +57,11 @@ class nagios::server(
     before => Service['nagios3'],
   }
 
-  file { '/etc/nagios3/conf.d' :
-    ensure  => link,
-    force   => true,
-    target  => '/etc/nagios',
+  file { '/etc/nagios3/nagios.cfg' :
+    owner   => 'root',
+    group   => 'root',
+    mode    => '644',
+    content => template('nagios/nagios.cfg.erb'),
     require => Package['nagios3'],
   }
   
