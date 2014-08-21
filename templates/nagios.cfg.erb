@@ -794,7 +794,7 @@ enable_event_handlers=1
 # performance data.
 # Values: 1 = process performance data, 0 = do not process performance data
 
-process_performance_data=0
+process_performance_data=<%= @process_performance_data %>
 
 
 
@@ -806,8 +806,8 @@ process_performance_data=0
 # define in your host configuration file.  Read the HTML docs for
 # more information on performance data.
 
-#host_perfdata_command=process-host-perfdata
-#service_perfdata_command=process-service-perfdata
+host_perfdata_command=process-host-perfdata
+service_perfdata_command=process-service-perfdata
 
 
 
@@ -816,8 +816,8 @@ process_performance_data=0
 # Performance data is only written to these files if the
 # enable_performance_data option (above) is set to 1.
 
-#host_perfdata_file=/tmp/host-perfdata
-#service_perfdata_file=/tmp/service-perfdata
+host_perfdata_file=/tmp/host-perfdata
+service_perfdata_file=/tmp/service-perfdata
 
 
 
@@ -829,8 +829,8 @@ process_performance_data=0
 # to the performance data file.  Some examples of what you can do are
 # shown below.
 
-#host_perfdata_file_template=[HOSTPERFDATA]\t$TIMET$\t$HOSTNAME$\t$HOSTEXECUTIONTIME$\t$HOSTOUTPUT$\t$HOSTPERFDATA$
-#service_perfdata_file_template=[SERVICEPERFDATA]\t$TIMET$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$
+host_perfdata_file_template=DATATYPE::HOSTPERFDATA\tTIMET::$TIMET$\tHOSTNAME::$HOSTNAME$\tHOSTPERFDATA::$HOSTPERFDATA$\tHOSTCHECKCOMMAND::$HOSTCHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::$HOSTSTATETYPE$
+service_perfdata_file_template=DATATYPE::SERVICEPERFDATA\tTIMET::$TIMET$\tHOSTNAME::$HOSTNAME$\tSERVICEDESC::$SERVICEDESC$\tSERVICEPERFDATA::$SERVICEPERFDATA$\tSERVICECHECKCOMMAND::$SERVICECHECKCOMMAND$\tHOSTSTATE::$HOSTSTATE$\tHOSTSTATETYPE::$HOSTSTATETYPE$\tSERVICESTATE::$SERVICESTATE$\tSERVICESTATETYPE::$SERVICESTATETYPE$
 
 
 
@@ -841,8 +841,8 @@ process_performance_data=0
 # pipe ("p") mode which avoid blocking at startup, otherwise you will
 # likely want the defult append ("a") mode.
 
-#host_perfdata_file_mode=a
-#service_perfdata_file_mode=a
+host_perfdata_file_mode=a
+service_perfdata_file_mode=a
 
 
 
@@ -852,8 +852,8 @@ process_performance_data=0
 # below.  A value of 0 indicates the files should not be periodically
 # processed.
 
-#host_perfdata_file_processing_interval=0
-#service_perfdata_file_processing_interval=0
+host_perfdata_file_processing_interval=<%= @host_perfdata_file_processing_interval %>
+service_perfdata_file_processing_interval=<%= @service_perfdata_file_processing_interval %>
 
 
 
@@ -862,8 +862,8 @@ process_performance_data=0
 # service performance data files.  The interval at which the
 # processing occurs is determined by the options above.
 
-#host_perfdata_file_processing_command=process-host-perfdata-file
-#service_perfdata_file_processing_command=process-service-perfdata-file
+host_perfdata_file_processing_command=process-host-perfdata-file
+service_perfdata_file_processing_command=process-service-perfdata-file
 
 
 

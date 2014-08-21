@@ -8,6 +8,12 @@
 # [*version*] The version of nagios to install
 # [*nrpe_version*] The version of nrpe-plugin to install
 # [*plugins_version*] The version of the plugins to install
+# [*pnp4nagios_version*] The version of the pnp4nagios to install
+# [*process_performance_data*] If performance data should be processed
+# [*host_perfdata_file_processing_interval*] Interval in which the performance data for hosts 
+#   should be bulk processed
+# [*service_perfdata_file_processing_interval*] Interval in which the performance data 
+#   for servicesshould be bulk processed
 # [*users_file*] The location of the users file which can be managed with nagios::user
 # [*config_files*] The config files which are to be managed by puppet (sets these to mode 644)
 #
@@ -16,11 +22,15 @@
 # Christopher Johnson - cjohn@ceh.ac.uk
 #
 class nagios::server(
-  $version         = installed,
-  $nrpe_version    = installed,
-  $plugins_version = installed,
-  $enable_embedded_perl         = 0,
-  $use_embedded_perl_implicitly = 0,
+  $version                                   = installed,
+  $nrpe_version                              = installed,
+  $plugins_version                           = installed,
+  $pnp4nagios_version                        = installed,
+  $process_performance_data                  = 1,
+  $host_perfdata_file_processing_interval    = 15,
+  $service_perfdata_file_processing_interval = 15,
+  $enable_embedded_perl                      = 0,
+  $use_embedded_perl_implicitly              = 0,
   $config_dirs = [
     '/etc/nagios-plugins/config',
     '/etc/nagios'
@@ -54,6 +64,11 @@ class nagios::server(
 
   package { 'nagios-plugins' :
     ensure => $plugins_version,
+    before => Service['nagios3'],
+  }
+
+  package { 'pnp4nagios' :
+    ensure => pnp4nagios_version,
     before => Service['nagios3'],
   }
 
