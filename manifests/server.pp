@@ -68,7 +68,7 @@ class nagios::server(
   }
 
   package { 'pnp4nagios' :
-    ensure => pnp4nagios_version,
+    ensure => $pnp4nagios_version,
     before => Service['nagios3'],
   }
 
