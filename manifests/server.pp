@@ -53,23 +53,25 @@ class nagios::server(
     '/etc/nagios/nagios_timeperiod.cfg'
   ]
 ) {
+  # Ensure that all packages are installed before starting nagios
+  Package {
+    before => Service['nagios3'],
+  }
+
   package { 'nagios3' :
     ensure => $version,
   }
 
   package { 'nagios-nrpe-plugin' :
     ensure => $nrpe_version,
-    before => Service['nagios3'],
   }
 
   package { 'nagios-plugins' :
     ensure => $plugins_version,
-    before => Service['nagios3'],
   }
 
   package { 'pnp4nagios' :
     ensure => $pnp4nagios_version,
-    before => Service['nagios3'],
   }
 
   file { '/etc/nagios3/nagios.cfg' :
@@ -84,14 +86,16 @@ class nagios::server(
   file { '/etc/nagios' :
     ensure  => directory,
     recurse => true,
-    mode    => 644,
+    mode    => 0644,
     purge   => true,
+    before  => Service['nagios3'],
   }
   
   # Set all of the config files to the correct mode
   file { $config_files :
-    mode   => 644,
-    ensure => present,
+    mode    => 0644,
+    ensure  => present,
+    before  => Service['nagios3'],
   }
 
   concat { $users_file :
@@ -110,7 +114,6 @@ class nagios::server(
     ensure      => running,
     hasstatus   => true,
     hasrestart  => true,
-    require     => Package['nagios3'],
   }
   
   # Gather the local resources
