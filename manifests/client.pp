@@ -16,15 +16,16 @@
 class nagios::client (
   $nagios_server,
   $nagios_version = installed,
-  $nrpe_config = '/etc/nagios/nrpe_local.cfg'
+  $nrpe_config    = $::nagios::nrpe_config
 ) {
   # Install nagios nrpe server and plugins
-  package { ['nagios-plugins', 'nagios-nrpe-server'] :
-    ensure => $nagios_version,
+  package { ['nagios-plugins', $::nagios::nrpe_package] :
+    ensure   => $nagios_version,
+    provider => $::nagios::package_provider,
   }
 
-  concat { $nrpe_config : 
-    require => Package['nagios-nrpe-server'],
+  concat { $nrpe_config :
+    require => Package[$::nagios::nrpe_package],
   }
 
   concat::fragment { "allowed_hosts ${nrpe_config}":
@@ -32,9 +33,18 @@ class nagios::client (
     content => "allowed_hosts=${nagios_server}\n"
   }
 
+  # On Mac OS X we need to link to the plist to create the nagios service
+  if $::kernel = 'Darwin' {
+    file { "/System/Library/LaunchDaemons/${::nagios::nrpe_service}.plist" :
+      ensure => 'link',
+      target => "/usr/local/opt/nrpe/${::nagios::nrpe_service}.plist",
+      before => Service[$::nagios::nrpe_service],
+    }
+  }
+
   # Keep the nrpe service running
-  service { 'nagios-nrpe-server': 
+  service { $::nagios::nrpe_service :
     ensure    => running,
-    subscribe => File['/etc/nagios/nrpe_local.cfg'],
+    subscribe => File[$nrpe_config],
   }
 }
