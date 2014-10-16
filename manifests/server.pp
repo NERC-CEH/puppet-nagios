@@ -57,6 +57,10 @@ class nagios::server(
     '/etc/nagios/nagios_timeperiod.cfg'
   ]
 ) {
+  if ! defined(Class['::nagios']) {
+    fail('You must include the nagios base class before nagios::server')
+  }
+
   # Ensure that all packages are installed before starting nagios
   Package {
     before => Service['nagios3'],

@@ -26,6 +26,10 @@ define nagios::nrpe (
   $command_name        = $name,
   $use                 = 'generic-service'
 ) {
+  if ! defined(Class['::nagios::client']) {
+    fail('You must include the nagios::client class before defining a nagios::nrpe')
+  }
+
   concat::fragment { "command ${name} ${nagios::client::nrpe_config}":
     target  => $::nagios::client::nrpe_config,
     content => "command[${name}]=${command}\n",
