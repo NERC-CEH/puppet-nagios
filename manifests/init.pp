@@ -24,7 +24,7 @@ class nagios {
   } 
 
   $nrpe_service = $::kernel ? {
-    Darwin  => 'homebrew.mxcl.nrpe',
+    Darwin  => 'org.nrpe.agent',
     default => 'nagios-nrpe-server'
   }
 }

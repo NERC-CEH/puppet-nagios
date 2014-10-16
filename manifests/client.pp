@@ -39,9 +39,10 @@ class nagios::client (
 
   # On Mac OS X we need to link to the plist to create the nagios service
   if $::kernel == 'Darwin' {
-    file { "/Library/LaunchDaemons/${::nagios::nrpe_service}.plist" :
-      ensure => 'link',
-      target => "/usr/local/opt/nrpe/${::nagios::nrpe_service}.plist",
+    file { "/Library/LaunchDaemons/homebrew.mxcl.nrpe.plist" :
+      ensure => 'file',
+      mode   => '0444',
+      source => "/usr/local/opt/nrpe/${::nagios::nrpe_service}.plist",
       before => Service[$::nagios::nrpe_service],
     }
   }
