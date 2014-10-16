@@ -8,6 +8,8 @@
 # [*nagios_server*] The $nagios_server which can access this node for monitoring
 # [*nagios_version*] The version of nagios plugins to install
 # [*nrpe_config*] The nrpe_config file to manage
+# [*user*] The user which the nrpe client should run as
+# [*group*] The group which the nrpe client should run as
 #
 # === Authors
 #
@@ -16,7 +18,9 @@
 class nagios::client (
   $nagios_server,
   $nagios_version = installed,
-  $nrpe_config    = $::nagios::nrpe_config
+  $nrpe_config    = $::nagios::nrpe_config,
+  $user           = $::nagios::user,
+  $group          = $::nagios::group
 ) {
   if ! defined(Class['::nagios']) {
     fail('You must include the nagios base class before nagios::client')
@@ -34,7 +38,17 @@ class nagios::client (
 
   concat::fragment { "allowed_hosts ${nrpe_config}":
     target  => $nrpe_config,
-    content => "allowed_hosts=${nagios_server}\n"
+    content => "allowed_hosts=${nagios_server}\n",
+  }
+
+  concat::fragment { "nrpe_user ${nrpe_config}":
+    target  => $nrpe_config,
+    content => "nrpe_user=${user}\n",
+  }
+
+  concat::fragment { "nrpe_group ${nrpe_config}":
+    target  => $nrpe_config,
+    content => "nrpe_group=${group}\n",
   }
 
   # On Mac OS X we need to link to the plist to create the nagios service
@@ -52,4 +66,8 @@ class nagios::client (
     ensure    => running,
     subscribe => File[$nrpe_config],
   }
+
+  # if a user or group is defined then ensure created before start the service
+  User  <| title == $user |>  -> Service[$::nagios::nrpe_service]
+  Group <| title == $group |> -> Service[$::nagios::nrpe_service]
 }
