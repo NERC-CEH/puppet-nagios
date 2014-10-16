@@ -7,6 +7,8 @@
 #
 # [*version*] The version of nagios to install
 # [*nrpe_version*] The version of nrpe-plugin to install
+# [*user*] The user which the nagios server should run as
+# [*group*] The group which the server should run as
 # [*plugins_version*] The version of the plugins to install
 # [*pnp4nagios_version*] The version of the pnp4nagios to install
 # [*process_performance_data*] If performance data should be processed
@@ -24,6 +26,8 @@
 class nagios::server(
   $version                                   = installed,
   $nrpe_version                              = installed,
+  $user                                      = $::nagios::user,
+  $group                                     = $::nagios::group,
   $plugins_version                           = installed,
   $pnp4nagios_version                        = installed,
   $process_performance_data                  = 1,
