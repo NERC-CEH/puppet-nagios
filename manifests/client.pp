@@ -18,6 +18,10 @@ class nagios::client (
   $nagios_version = installed,
   $nrpe_config    = $::nagios::nrpe_config
 ) {
+  if ! defined(Class['::nagios']) {
+    fail('You must include the nagios base class before nagios::client')
+  }
+
   # Install nagios nrpe server and plugins
   package { ['nagios-plugins', $::nagios::nrpe_package] :
     ensure   => $nagios_version,
@@ -34,8 +38,8 @@ class nagios::client (
   }
 
   # On Mac OS X we need to link to the plist to create the nagios service
-  if $::kernel = 'Darwin' {
-    file { "/System/Library/LaunchDaemons/${::nagios::nrpe_service}.plist" :
+  if $::kernel == 'Darwin' {
+    file { "/Library/LaunchDaemons/${::nagios::nrpe_service}.plist" :
       ensure => 'link',
       target => "/usr/local/opt/nrpe/${::nagios::nrpe_service}.plist",
       before => Service[$::nagios::nrpe_service],
