@@ -68,6 +68,6 @@ class nagios::client (
   }
 
   # if a user or group is defined then ensure created before start the service
-  User  <| title == $user |>  -> Service[$::nagios::nrpe_service]
-  Group <| title == $group |> -> Service[$::nagios::nrpe_service]
+  Package[$::nagios::nrpe_package] -> User  <| title == $user |>  -> Service[$::nagios::nrpe_service]
+  Package[$::nagios::nrpe_package] -> Group <| title == $group |> -> Service[$::nagios::nrpe_service]
 }

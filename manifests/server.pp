@@ -155,4 +155,8 @@ class nagios::server(
   Package['nagios3'] -> Nagios_serviceextinfo <<||>>    ~> Exec['nagios3-verify']
   Package['nagios3'] -> Nagios_servicegroup <<||>>      ~> Exec['nagios3-verify']
   Package['nagios3'] -> Nagios_timeperiod <<||>>        ~> Exec['nagios3-verify']
+
+  # if a user or group is defined then ensure created before start the service
+  Package['nagios3'] -> User  <| title == $user |>  -> Service['nagios3']
+  Package['nagios3'] -> Group <| title == $group |> -> Service['nagios3']
 }
