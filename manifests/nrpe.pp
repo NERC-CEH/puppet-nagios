@@ -1,4 +1,4 @@
-# == Define: tomcat::deployment
+# == Define: nagios::nrpe
 #
 # Define an nrpe service which can be monitored by a remote nagios server.
 #
