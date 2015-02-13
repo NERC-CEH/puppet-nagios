@@ -15,8 +15,8 @@
 #
 define nagios::plugin (
   $source,
-  $command      = $name,
-  $path = $::nagios::plugins_path,
+  $command = $name,
+  $path    = $::nagios::plugins_path,
 ) {
   file { "${path}/${command}":
     mode   => '755',

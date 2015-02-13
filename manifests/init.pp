@@ -33,11 +33,16 @@ class nagios (
   $nrpe_config = $::kernel ? {
     Darwin  => '/usr/local/etc/nrpe.cfg',
     default => '/etc/nagios/nrpe_local.cfg'
-  } 
+  }
 
   $nrpe_service = $::kernel ? {
     Darwin  => 'org.nrpe.agent',
     default => 'nagios-nrpe-server'
+  }
+  
+  $plugins_path = $::kernel ? {
+    'Darwin' => '/usr/local/opt/nagios-plugins/sbin'
+    default  => '/usr/lib/nagios/plugins'
   }
 
   if $manage_user {
