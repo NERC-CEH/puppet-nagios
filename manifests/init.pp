@@ -41,8 +41,8 @@ class nagios (
   }
 
   $plugins_path = $::kernel ? {
-    'Darwin' => '/usr/local/opt/nagios-plugins/sbin',
-    default  => '/usr/lib/nagios/plugins'
+    Darwin  => '/usr/local/opt/nagios-plugins/sbin',
+    default => '/usr/lib/nagios/plugins'
   }
 
   if $manage_user {
