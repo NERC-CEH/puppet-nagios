@@ -67,7 +67,7 @@ class nagios::client (
     subscribe => File[$nrpe_config],
   }
 
-  # if a user or group is defined then ensure created before start the service
-  Package[$::nagios::nrpe_package] -> User  <| title == $user |>  -> Service[$::nagios::nrpe_service]
-  Package[$::nagios::nrpe_package] -> Group <| title == $group |> -> Service[$::nagios::nrpe_service]
+  # Notify the nrpe service if the user or group change
+  Package[$::nagios::nrpe_package] -> User[$user]   ~> Service[$::nagios::nrpe_service]
+  Package[$::nagios::nrpe_package] -> Group[$group] ~> Service[$::nagios::nrpe_service]
 }
