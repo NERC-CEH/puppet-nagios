@@ -39,9 +39,9 @@ class nagios (
     Darwin  => 'org.nrpe.agent',
     default => 'nagios-nrpe-server'
   }
-  
+
   $plugins_path = $::kernel ? {
-    'Darwin' => '/usr/local/opt/nagios-plugins/sbin'
+    'Darwin' => '/usr/local/opt/nagios-plugins/sbin',
     default  => '/usr/lib/nagios/plugins'
   }
 
