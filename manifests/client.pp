@@ -30,6 +30,7 @@ class nagios::client (
   package { ['nagios-plugins', $::nagios::nrpe_package] :
     ensure   => $nagios_version,
     provider => $::nagios::package_provider,
+    before   => File[$::nagios::plugins_path],
   }
 
   concat { $nrpe_config :

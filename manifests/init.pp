@@ -9,16 +9,18 @@
 # [*group*] The group which the nrpe client and server should run as
 # [*manage_user*] If the user should be managed
 # [*manage_group*] If the group should be managed
+# [*manage_plugins_path*] If the plugins path should be managed
 #
 # === Authors
 #
 # Christopher Johnson - cjohn@ceh.ac.uk
 #
 class nagios (
-  $user         = 'nagios',
-  $group        = 'nagios',
-  $manage_user  = true,
-  $manage_group = true
+  $user                = 'nagios',
+  $group               = 'nagios',
+  $manage_user         = true,
+  $manage_group        = true,
+  $manage_plugins_path = true
 ) {
   $nrpe_package = $::kernel ? {
     Darwin  => 'nrpe',
@@ -43,6 +45,12 @@ class nagios (
   $plugins_path = $::kernel ? {
     Darwin  => '/usr/local/opt/nagios-plugins/sbin',
     default => '/usr/lib/nagios/plugins'
+  }
+
+  if $manage_plugins_path {
+    file { $plugins_path :
+      ensure => directory,
+    }
   }
 
   if $manage_user {

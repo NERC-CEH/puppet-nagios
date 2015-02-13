@@ -63,7 +63,10 @@ class nagios::server(
 
   # Ensure that all packages are installed before starting nagios
   Package {
-    before => Service['nagios3'],
+    before => [ 
+      Service['nagios3'],
+      File[$::nagios::plugins_path]
+    ],
   }
 
   package { 'nagios3' :
