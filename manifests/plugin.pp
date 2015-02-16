@@ -18,7 +18,11 @@ define nagios::plugin (
   $command = $name,
   $path    = $::nagios::plugins_path,
 ) {
-  file { "${path}/${command}":
+  if ! defined(Class['::nagios']) {
+    fail('You must include the nagios base class before nagios::plugin')
+  }
+
+  file { "${path}/${command}" :
     mode   => '755',
     source => $source,
   }
