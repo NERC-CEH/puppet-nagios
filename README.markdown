@@ -72,7 +72,15 @@ To set up nrpe services on a client node declare the nagios::client class. This 
 
 ## Limitations
 
-This module has been tested on ubuntu 12.04 lts
+This module has been tested with ubuntu 12.04 lts as a server and the 
+following as nrpe clients:
+
+- Mac OS X 10.9
+- Ubuntu 12.04 LTS
+- Ubuntu 14.04 LTS
+- CentOS 6.5
+
+
 
 ## Contributors
 
