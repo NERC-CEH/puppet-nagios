@@ -27,7 +27,7 @@ class nagios::client (
   }
 
   # Install nagios nrpe server and plugins
-  package { ['nagios-plugins', $::nagios::nrpe_package] :
+  package { [$::nagios::nrpe_plugins, $::nagios::nrpe_package] :
     ensure   => $nagios_version,
     provider => $::nagios::package_provider,
     before   => File[$::nagios::plugins_path],
