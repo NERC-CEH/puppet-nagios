@@ -65,6 +65,7 @@ class nagios::client (
   # Keep the nrpe service running
   service { $::nagios::nrpe_service :
     ensure    => running,
+    enable    => true,
     subscribe => File[$nrpe_config],
   }
 
