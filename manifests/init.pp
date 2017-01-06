@@ -23,36 +23,36 @@ class nagios (
   $manage_plugins_path = true
 ) {
   $nrpe_package = $::osfamily ? {
-    Darwin  => 'nrpe',
-    RedHat  => 'nrpe',
+    'Darwin'  => 'nrpe',
+    'RedHat'  => 'nrpe',
     default => 'nagios-nrpe-server'
   }
 
   $package_provider = $::osfamily ? {
-    Darwin  => 'brew',
+    'Darwin'  => 'brew',
     default => undef
   }
 
   $nrpe_config = $::osfamily ? {
-    Darwin  => '/usr/local/etc/nrpe.cfg',
-    RedHat  => '/etc/nagios/nrpe.cfg',
+    'Darwin'  => '/usr/local/etc/nrpe.cfg',
+    'RedHat'  => '/etc/nagios/nrpe.cfg',
     default => '/etc/nagios/nrpe_local.cfg'
   }
 
   $nrpe_service = $::osfamily ? {
-    Darwin  => 'org.nrpe.agent',
-    RedHat  => 'nrpe',
+    'Darwin'  => 'org.nrpe.agent',
+    'RedHat'  => 'nrpe',
     default => 'nagios-nrpe-server'
   }
 
   $nrpe_plugins = $::osfamily ? {
-    RedHat  => 'nagios-plugins-all',
+    'RedHat'  => 'nagios-plugins-all',
     default => 'nagios-plugins',
   }
 
   $plugins_path = $::osfamily ? {
-    Darwin  => '/usr/local/opt/nagios-plugins/sbin',
-    RedHat  => '/usr/lib64/nagios/plugins',
+    'Darwin'  => '/usr/local/opt/nagios-plugins/sbin',
+    'RedHat'  => '/usr/lib64/nagios/plugins',
     default => '/usr/lib/nagios/plugins'
   }
 
