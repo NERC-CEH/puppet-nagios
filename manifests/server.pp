@@ -88,7 +88,7 @@ class nagios::server(
   file { '/etc/nagios3/nagios.cfg' :
     owner   => 'root',
     group   => 'root',
-    mode    => '644',
+    mode    => '0644',
     content => template('nagios/nagios.cfg.erb'),
     notify  => Exec['nagios3-verify'],
     require => Package['nagios3'],
@@ -97,14 +97,14 @@ class nagios::server(
   file { '/etc/nagios' :
     ensure  => directory,
     recurse => true,
-    mode    => 0644,
+    mode    => '0644',
     purge   => true,
     before  => Service['nagios3'],
   }
   
   # Set all of the config files to the correct mode
   file { $config_files :
-    mode    => 0644,
+    mode    => '0644',
     ensure  => present,
     before  => Service['nagios3'],
   }
