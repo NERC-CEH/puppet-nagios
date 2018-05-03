@@ -66,7 +66,7 @@ class nagios::client (
   service { $::nagios::nrpe_service :
     ensure    => running,
     enable    => true,
-    subscribe => File[$nrpe_config],
+    subscribe => Concat[$nrpe_config],
   }
 
   # Notify the nrpe service if the user or group change
