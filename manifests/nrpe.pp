@@ -38,7 +38,7 @@ define nagios::nrpe (
   }
 
   @@nagios_service { "${command_name}_${fqdn}" :
-    check_command         => "check_nrpe_1arg!${command_name}",
+    check_command         => "check_nrpe!${command_name}",
     use                   => $use,
     host_name             => $host_name,
     notification_period   => $notification_period,
