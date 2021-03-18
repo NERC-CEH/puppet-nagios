@@ -1,6 +1,6 @@
 {
   "name": "ceh-nagios",
-  "version": "1.5.1",
+  "version": "1.7.0",
   "author": "UK Centre for Ecology & Hydrology",
   "license": "GPL-2.0",
   "summary": "Allows you to create an instance of nagios and then monitor nodes which have exported resources in your puppetdb",
